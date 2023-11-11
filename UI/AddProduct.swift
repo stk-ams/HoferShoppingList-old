@@ -9,10 +9,11 @@ import SwiftUI
 
 struct AddProduct: View {
     @Binding var shoppingItems: [ShoppingItem]
-    @State var name: String = ""
-    @State var category: String = ""
-    @State var amount: Int = 1
-    @State var unit: String = "Stück"
+    @AppStorage("name")   var name: String = ""
+    @AppStorage("category")   var category: String = ""
+    @AppStorage("amount")   var amount: Int = 1
+    @AppStorage("unit") var unit: String = "Stück"
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         
@@ -56,8 +57,10 @@ struct AddProduct: View {
                     
                 }
                 
-                Button("clickme") {
-                    print("hi")
+                Button("Create") {
+                    let item = ShoppingItem(name: name, amount: amount)
+                    shoppingItems.append(item)
+                    dismiss()
                 }
             }
            
